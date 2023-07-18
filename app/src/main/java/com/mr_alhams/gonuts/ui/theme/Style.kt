@@ -1,5 +1,6 @@
 package com.mr_alhams.gonuts.ui.theme
 
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
@@ -79,4 +80,18 @@ val bodyMediumNormal = TextStyle(
     fontWeight = FontWeight.Normal,
     fontSize = 14.sp,
     color = Gray
+)
+
+val bodyMediumSemiboldSpanStyle = SpanStyle(
+    fontFamily = Inter,
+    fontWeight = FontWeight.SemiBold,
+    fontSize = 14.sp,
+    color = Gray
+)
+
+val titleXLargeSpanStyle = SpanStyle(
+    fontFamily = Inter,
+    fontWeight = FontWeight.Medium,
+    fontSize = 22.sp,
+    color = Black
 )
