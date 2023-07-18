@@ -2,6 +2,7 @@ package com.mr_alhams.gonuts.ui.screen.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,6 +16,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.mr_alhams.gonuts.ui.theme.LightGrey
 import com.mr_alhams.gonuts.ui.theme.Primary
@@ -23,10 +26,15 @@ import com.mr_alhams.gonuts.ui.theme.bodyMedium
 import com.mr_alhams.gonuts.ui.theme.bodyMediumSemibold
 
 @Composable
-fun DonutItem(state: DonutItem, modifier: Modifier = Modifier) {
+fun DonutItem(
+    state: DonutItem,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
     Box(contentAlignment = Alignment.Center) {
         Column(
             modifier = modifier
+                .clickable { onClick() }
                 .background(
                     White,
                     RoundedCornerShape(
@@ -37,13 +45,19 @@ fun DonutItem(state: DonutItem, modifier: Modifier = Modifier) {
                     )
                 )
                 .width(138.dp)
-                .height(111.dp)
                 .padding(top = 27.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Bottom
         ) {
 
-            Text(text = state.name, style = bodyMedium.copy(color = LightGrey))
+            Text(
+                text = state.name,
+                style = bodyMedium.copy(color = LightGrey),
+                modifier = Modifier.padding(top = 24.dp, start = 4.dp, end = 4.dp),
+                textAlign = TextAlign.Center,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
             Text(
                 text = "${state.price}$",
                 style = bodyMediumSemibold.copy(color = Primary),

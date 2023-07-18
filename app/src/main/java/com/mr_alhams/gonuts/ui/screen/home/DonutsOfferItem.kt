@@ -2,6 +2,7 @@ package com.mr_alhams.gonuts.ui.screen.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
@@ -28,11 +29,17 @@ import com.mr_alhams.gonuts.ui.theme.titleXLargeSpanStyle
 
 
 @Composable
-fun DonutOffersItem(state: DonutOffer, modifier: Modifier = Modifier) {
+fun DonutOffersItem(
+    state: DonutOffer,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Column(
         modifier = modifier
             .width(193.dp)
+            .clickable { onClick() }
             .padding(16.dp)
+
     ) {
         Icon(
             painter = painterResource(id = R.drawable.favourite),

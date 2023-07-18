@@ -36,13 +36,16 @@ fun HomeScreen(
 ) {
 
     val state by viewModel.uiState.collectAsState()
-    HomeContent(state)
+    HomeContent(state, viewModel)
 
 }
 
 
 @Composable
-private fun HomeContent(state: HomeUiState) {
+private fun HomeContent(
+    state: HomeUiState,
+    listener: HomeScreenInteractionListener
+) {
     LazyColumn(modifier = Modifier.background(Background)) {
 
         item {
@@ -62,7 +65,7 @@ private fun HomeContent(state: HomeUiState) {
                     },
                     leading = {
                         IconButton(
-                            onClick = { },
+                            onClick = { listener.onSearchClicked() },
                             modifier = Modifier.background(Secondary, RoundedCornerShape(15.dp))
                         ) {
                             Icon(
@@ -87,10 +90,13 @@ private fun HomeContent(state: HomeUiState) {
                 ) {
                     itemsIndexed(state.donutOffers) { index, item ->
                         DonutOffersItem(
-                            state = item, modifier = Modifier.background(
-                                if (index % 2 == 0) LightBlue else Secondary,
-                                RoundedCornerShape(20.dp)
-                            )
+                            onClick = { listener.onClickDonut(index) },
+                            state = item,
+                            modifier = Modifier
+                                .background(
+                                    if (index % 2 == 0) LightBlue else Secondary,
+                                    RoundedCornerShape(20.dp)
+                                )
                         )
                     }
                 }
@@ -107,7 +113,12 @@ private fun HomeContent(state: HomeUiState) {
                     horizontalArrangement = Arrangement.spacedBy(20.dp)
                 ) {
                     itemsIndexed(state.donutsList) { index, item ->
-                        DonutItem(state = item)
+                        DonutItem(
+                            onClick = {
+                                listener.onClickDonut(index)
+                            },
+                            state = item,
+                        )
                     }
                 }
             }
