@@ -46,4 +46,17 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch { _effect.emit(index) }
     }
 
+    override fun onAddToFavourite(index: Int) {
+
+        val item = _uiState.value.donutOffers[index]
+
+        val updatedItem = _uiState.value.donutOffers[index].copy(isFavorite = !item.isFavorite)
+
+        val list = _uiState.value.donutOffers.toMutableList()
+
+        list[index] = updatedItem
+
+        _uiState.update { it.copy(donutOffers = list) }
+    }
+
 }

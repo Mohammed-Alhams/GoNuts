@@ -4,4 +4,6 @@ interface HomeScreenInteractionListener {
     fun onSearchClicked()
     fun onClickDonut(index: Int)
 
+    fun onAddToFavourite(index: Int)
+
 }

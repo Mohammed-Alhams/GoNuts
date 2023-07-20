@@ -111,6 +111,7 @@ private fun HomeContent(
             itemsIndexed(state.donutOffers) { index, item ->
                 DonutOffersItem(
                     onClick = { listener.onClickDonut(index) },
+                    onAddToFavourite = { listener.onAddToFavourite(index) },
                     state = item,
                     modifier = Modifier
                         .background(
@@ -160,6 +161,7 @@ private fun HomeContent(
             itemsIndexed(state.donutOffers) { index, item ->
                 DonutOffersItem(
                     onClick = { listener.onClickDonut(index) },
+                    onAddToFavourite = { listener.onAddToFavourite(index) },
                     state = item,
                     modifier = Modifier
                         .background(

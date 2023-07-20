@@ -11,7 +11,7 @@ class GoNutsDataSource @Inject constructor() {
     fun getDonutOffers(): List<DonutOffer> {
         return listOf(
             DonutOffer(
-                isFavorite = true,
+                isFavorite = false,
                 R.drawable.donut_offer1,
                 "Strawberry Wheel",
                 "These Baked Strawberry Donuts are filled with fresh strawberries with fresh strawberries",
@@ -19,7 +19,7 @@ class GoNutsDataSource @Inject constructor() {
                 20
             ),
             DonutOffer(
-                isFavorite = true,
+                isFavorite = false,
                 R.drawable.donut_offer2,
                 "Chocolate Glaze",
                 "Moist and fluffy baked chocolate donuts full of chocolate flavor.",
@@ -27,7 +27,7 @@ class GoNutsDataSource @Inject constructor() {
                 20
             ),
             DonutOffer(
-                isFavorite = true,
+                isFavorite = false,
                 R.drawable.donut_offer1,
                 "Strawberry Wheel",
                 "These Baked Strawberry Donuts are filled with fresh strawberries with fresh strawberries",
@@ -35,7 +35,7 @@ class GoNutsDataSource @Inject constructor() {
                 20
             ),
             DonutOffer(
-                isFavorite = true,
+                isFavorite = false,
                 R.drawable.donut_offer2,
                 "Chocolate Glaze",
                 "Moist and fluffy baked chocolate donuts full of chocolate flavor.",

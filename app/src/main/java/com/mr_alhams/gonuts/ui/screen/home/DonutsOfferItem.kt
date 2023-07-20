@@ -33,6 +33,7 @@ import com.mr_alhams.gonuts.ui.theme.titleXLargeSpanStyle
 fun DonutOffersItem(
     state: DonutOffer,
     onClick: () -> Unit,
+    onAddToFavourite: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -45,13 +46,17 @@ fun DonutOffersItem(
             .padding(16.dp)
 
     ) {
+
+        val icon = if (state.isFavorite) R.drawable.heart_filled else R.drawable.heart
+
         Icon(
-            painter = painterResource(id = R.drawable.favourite),
+            painter = painterResource(icon),
             contentDescription = state.name,
             modifier = Modifier
+                .clickable { onAddToFavourite() }
                 .background(White, CircleShape)
                 .padding(horizontal = 8.dp, vertical = 9.dp)
-                .size(24.dp),
+                .size(28.dp),
             tint = Primary
         )
 
