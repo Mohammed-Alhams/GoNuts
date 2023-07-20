@@ -3,6 +3,7 @@ package com.mr_alhams.gonuts.ui.screen.home
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
@@ -37,7 +38,10 @@ fun DonutOffersItem(
     Column(
         modifier = modifier
             .width(193.dp)
-            .clickable { onClick() }
+            .clickable(
+                interactionSource = MutableInteractionSource(),
+                indication = null
+            ) { onClick() }
             .padding(16.dp)
 
     ) {
