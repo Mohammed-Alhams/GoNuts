@@ -1,14 +1,16 @@
 package com.mr_alhams.gonuts.ui.screen.home
 
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -26,7 +28,6 @@ import androidx.navigation.NavController
 import com.mr_alhams.gonuts.R
 import com.mr_alhams.gonuts.ui.screen.composables.TopBar
 import com.mr_alhams.gonuts.ui.screen.details.navigateToDetails
-import com.mr_alhams.gonuts.ui.theme.Background
 import com.mr_alhams.gonuts.ui.theme.LightBlue
 import com.mr_alhams.gonuts.ui.theme.Primary
 import com.mr_alhams.gonuts.ui.theme.Secondary
@@ -55,7 +56,9 @@ fun HomeScreen(
         }
     }
 
-    HomeContent(state, viewModel)
+    val scrollState = rememberScrollState()
+
+    HomeContent(state, viewModel, scrollState)
 
 }
 
@@ -63,84 +66,109 @@ fun HomeScreen(
 @Composable
 private fun HomeContent(
     state: HomeUiState,
-    listener: HomeScreenInteractionListener
+    listener: HomeScreenInteractionListener,
+    scrollState: ScrollState
 ) {
-    LazyColumn(modifier = Modifier.background(Background)) {
 
-        item {
+    Column(modifier = Modifier.verticalScroll(scrollState)) {
 
-            Column() {
-
-                TopBar(
-                    title = {
-                        Text(
-                            text = stringResource(R.string.let_s_gonuts),
-                            style = headlineSmallSemibold
-                        )
-                    },
-                    subTitle = {
-                        Text(text = stringResource(R.string.order_donuts), style = bodyMedium)
-
-                    },
-                    leading = {
-                        IconButton(
-                            onClick = { listener.onSearchClicked() },
-                            modifier = Modifier.background(Secondary, RoundedCornerShape(15.dp))
-                        ) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.search),
-                                contentDescription = stringResource(R.string.search_button),
-                                tint = Primary
-                            )
-                        }
-                    },
-                    modifier = Modifier.padding(start = 32.dp, end = 32.dp, top = 40.dp)
-                )
-
+        TopBar(
+            title = {
                 Text(
-                    text = stringResource(R.string.today_offers),
-                    style = titleLargeSemibold,
-                    modifier = Modifier.padding(start = 32.dp, top = 32.dp)
+                    text = stringResource(R.string.let_s_gonuts),
+                    style = headlineSmallSemibold
                 )
+            },
+            subTitle = {
+                Text(text = stringResource(R.string.order_donuts), style = bodyMedium)
 
-                LazyRow(
-                    contentPadding = PaddingValues(start = 32.dp, end = 64.dp, top = 16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(72.dp)
+            },
+            leading = {
+                IconButton(
+                    onClick = { listener.onSearchClicked() },
+                    modifier = Modifier.background(Secondary, RoundedCornerShape(15.dp))
                 ) {
-                    itemsIndexed(state.donutOffers) { index, item ->
-                        DonutOffersItem(
-                            onClick = { listener.onClickDonut(index) },
-                            state = item,
-                            modifier = Modifier
-                                .background(
-                                    if (index % 2 == 0) LightBlue else Secondary,
-                                    RoundedCornerShape(20.dp)
-                                )
-                        )
-                    }
+                    Icon(
+                        painter = painterResource(id = R.drawable.search),
+                        contentDescription = stringResource(R.string.search_button),
+                        tint = Primary
+                    )
                 }
+            },
+            modifier = Modifier.padding(start = 32.dp, end = 32.dp, top = 24.dp)
+        )
 
-                Text(
-                    text = "Donuts",
-                    style = titleLargeSemibold,
-                    modifier = Modifier.padding(start = 32.dp, top = 24.dp)
+        Text(
+            text = stringResource(R.string.today_offers),
+            style = titleLargeSemibold,
+            modifier = Modifier.padding(start = 32.dp, top = 32.dp)
+        )
+
+        LazyRow(
+            contentPadding = PaddingValues(start = 32.dp, end = 64.dp, top = 16.dp),
+            horizontalArrangement = Arrangement.spacedBy(72.dp)
+        ) {
+            itemsIndexed(state.donutOffers) { index, item ->
+                DonutOffersItem(
+                    onClick = { listener.onClickDonut(index) },
+                    state = item,
+                    modifier = Modifier
+                        .background(
+                            if (index % 2 == 0) LightBlue else Secondary,
+                            RoundedCornerShape(20.dp)
+                        )
                 )
+            }
+        }
 
-                LazyRow(
-                    modifier = Modifier.padding(top = 24.dp),
-                    contentPadding = PaddingValues(32.dp),
-                    horizontalArrangement = Arrangement.spacedBy(20.dp)
-                ) {
-                    itemsIndexed(state.donutsList) { index, item ->
-                        DonutItem(
-                            onClick = {
-                                listener.onClickDonut(index)
-                            },
-                            state = item,
+        Text(
+            text = "Donuts",
+            style = titleLargeSemibold,
+            modifier = Modifier.padding(start = 32.dp, top = 24.dp)
+        )
+
+        LazyRow(
+            modifier = Modifier.padding(top = 24.dp),
+            contentPadding = PaddingValues(32.dp),
+            horizontalArrangement = Arrangement.spacedBy(20.dp)
+        ) {
+            itemsIndexed(state.donutsList) { index, item ->
+                DonutItem(
+                    onClick = {
+                        listener.onClickDonut(index)
+                    },
+                    state = item,
+                )
+            }
+        }
+
+        Text(
+            text = stringResource(R.string.today_offers),
+            style = titleLargeSemibold,
+            modifier = Modifier.padding(start = 32.dp)
+        )
+
+        LazyRow(
+            contentPadding = PaddingValues(
+                start = 32.dp,
+                end = 64.dp,
+                top = 16.dp,
+                bottom = 32.dp
+            ),
+            horizontalArrangement = Arrangement.spacedBy(72.dp)
+        ) {
+            itemsIndexed(state.donutOffers) { index, item ->
+                DonutOffersItem(
+                    onClick = { listener.onClickDonut(index) },
+                    state = item,
+                    modifier = Modifier
+                        .background(
+                            if (index % 2 == 0) LightBlue else Secondary,
+                            RoundedCornerShape(20.dp)
                         )
-                    }
-                }
+                )
             }
         }
     }
+
 }
