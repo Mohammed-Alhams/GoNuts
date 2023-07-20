@@ -20,7 +20,7 @@ fun GoNutsNavGraph(navController: NavHostController) {
     ) {
         onBoardingRoute(navController)
         homeRoute(navController)
-        detailsRoute()
+        detailsRoute(navController)
         profileRoute()
         notificationsRoute()
         cartRoute()

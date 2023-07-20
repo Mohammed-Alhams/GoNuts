@@ -15,11 +15,11 @@ fun NavController.navigateToDetails(index: Int) {
     navigate("$ROUTE/$index")
 }
 
-fun NavGraphBuilder.detailsRoute() {
+fun NavGraphBuilder.detailsRoute(navController: NavController) {
     composable(
         route = "$ROUTE/{$INDEX_ARG}",
         arguments = listOf(navArgument(INDEX_ARG) { NavType.IntType }),
-    ) { DetailsScreen() }
+    ) { DetailsScreen(navController = navController) }
 }
 
 class DetailsArgs(savedStateHandle: SavedStateHandle) {

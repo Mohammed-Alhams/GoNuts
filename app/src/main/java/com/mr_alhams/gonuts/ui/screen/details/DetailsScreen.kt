@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -16,6 +17,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -26,6 +28,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.mr_alhams.gonuts.R
 import com.mr_alhams.gonuts.ui.screen.composables.ButtonPrimary
 import com.mr_alhams.gonuts.ui.screen.composables.ButtonRounded
@@ -40,19 +43,31 @@ import com.mr_alhams.gonuts.ui.theme.bodyMediumNormal
 import com.mr_alhams.gonuts.ui.theme.headlineSmallSemibold
 import com.mr_alhams.gonuts.ui.theme.titleLargeSemibold
 import com.mr_alhams.gonuts.ui.theme.titleMedium
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun DetailsScreen(
-    viewModel: DetailsViewModel = hiltViewModel()
+    viewModel: DetailsViewModel = hiltViewModel(),
+    navController: NavController
 ) {
     val state by viewModel.uiState.collectAsState()
-    DetailsContent(state)
+
+    LaunchedEffect(key1 = Unit) {
+        viewModel.effect.collectLatest {
+            navController.navigateUp()
+        }
+    }
+
+    DetailsContent(state, viewModel)
 }
 
 @Composable
-fun DetailsContent(state: DetailsUiState) {
+fun DetailsContent(
+    state: DetailsUiState,
+    listener: DetailsScreenInteractionListener
+) {
 
-    LazyColumn() {
+    LazyColumn {
 
         item {
             Column(
@@ -62,8 +77,8 @@ fun DetailsContent(state: DetailsUiState) {
             ) {
 
                 IconButton(
-                    onClick = { },
-                    modifier = Modifier.padding(top = 40.dp, start = 32.dp)
+                    onClick = { listener.onClickBack() },
+                    modifier = Modifier.padding(top = 15.dp, start = 32.dp)
                 ) {
                     Icon(
                         painter = painterResource(id = R.drawable.back),
@@ -90,8 +105,20 @@ fun DetailsContent(state: DetailsUiState) {
                             Background,
                             RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp)
                         )
-                        .padding(40.dp),
+                        .padding(bottom = 40.dp, start = 40.dp, end = 40.dp),
                 ) {
+
+                    Icon(
+                        painter = painterResource(id = R.drawable.heart),
+                        contentDescription = state.title,
+                        modifier = Modifier
+                            .offset(y = (-20).dp)
+                            .background(White, RoundedCornerShape(16.dp))
+                            .padding(horizontal = 8.dp, vertical = 9.dp)
+                            .size(28.dp)
+                            .align(Alignment.End),
+                        tint = Primary
+                    )
 
                     Text(
                         text = state.title,
