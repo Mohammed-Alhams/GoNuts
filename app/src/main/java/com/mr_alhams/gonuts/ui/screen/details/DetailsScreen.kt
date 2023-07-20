@@ -6,12 +6,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -67,121 +67,124 @@ fun DetailsContent(
     listener: DetailsScreenInteractionListener
 ) {
 
-    LazyColumn {
 
-        item {
-            Column(
+    Column(
+        modifier = Modifier
+            .fillMaxHeight()
+            .background(Secondary)
+    ) {
+
+        IconButton(
+            onClick = { listener.onClickBack() },
+            modifier = Modifier.padding(top = 15.dp, start = 32.dp)
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.back),
+                contentDescription = stringResource(R.string.back_button),
+                tint = Primary
+            )
+        }
+
+        Image(
+            modifier = Modifier
+                .padding(bottom = 24.dp)
+                .size(240.dp)
+                .align(Alignment.CenterHorizontally),
+            painter = painterResource(id = state.image),
+            contentDescription = state.title,
+            contentScale = ContentScale.FillWidth
+        )
+
+        Spacer(modifier = Modifier.weight(1f))
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .background(
+                    Background,
+                    RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp)
+                )
+                .padding(bottom = 40.dp, start = 40.dp, end = 40.dp),
+        ) {
+
+            Icon(
+                painter = painterResource(id = R.drawable.heart),
+                contentDescription = state.title,
                 modifier = Modifier
-                    .fillMaxSize()
-                    .background(Secondary)
+                    .offset(y = (-20).dp)
+                    .background(White, RoundedCornerShape(16.dp))
+                    .padding(horizontal = 8.dp, vertical = 9.dp)
+                    .size(28.dp)
+                    .align(Alignment.End),
+                tint = Primary
+            )
+
+            Text(
+                text = state.title,
+                style = headlineSmallSemibold
+            )
+
+            Text(
+                text = stringResource(R.string.about_gonut),
+                style = titleMedium.copy(color = DarkGray),
+                modifier = Modifier.padding(top = 32.dp)
+            )
+
+            Text(
+                text = state.description,
+                style = bodyMediumNormal.copy(color = LightGrey),
+                modifier = Modifier.padding(top = 16.dp),
+                maxLines = 4,
+                overflow = TextOverflow.Ellipsis
+            )
+
+            Text(
+                text = stringResource(R.string.quantity),
+                style = titleMedium.copy(color = DarkGray),
+                modifier = Modifier.padding(top = 26.dp)
+            )
+
+            Row(
+                modifier = Modifier
+                    .padding(top = 18.dp),
+                horizontalArrangement = Arrangement.spacedBy(20.dp)
             ) {
 
-                IconButton(
-                    onClick = { listener.onClickBack() },
-                    modifier = Modifier.padding(top = 15.dp, start = 32.dp)
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.back),
-                        contentDescription = stringResource(R.string.back_button),
-                        tint = Primary
+                ButtonRounded(modifier = Modifier, color = White, onClick = {}) {
+                    Text(text = stringResource(R.string.minus), style = titleMedium)
+                }
+                ButtonRounded(modifier = Modifier, color = White, onClick = {}) {
+                    Text(text = state.quantity.toString(), style = titleMedium)
+                }
+                ButtonRounded(modifier = Modifier, color = Black, onClick = {}) {
+                    Text(
+                        text = stringResource(R.string.bonus),
+                        style = titleMedium.copy(White)
                     )
                 }
 
-                Image(
-                    modifier = Modifier
-                        .padding(bottom = 24.dp)
-                        .size(240.dp)
-                        .align(Alignment.CenterHorizontally),
-                    painter = painterResource(id = state.image),
-                    contentDescription = state.title,
-                    contentScale = ContentScale.FillWidth
-                )
+            }
 
-                Spacer(modifier = Modifier.weight(1f))
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(
-                            Background,
-                            RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp)
-                        )
-                        .padding(bottom = 40.dp, start = 40.dp, end = 40.dp),
+            Spacer(
+                modifier = Modifier
+                    .weight(1f)
+                    .height(999.dp)
+            )
+
+            Row(
+                modifier = Modifier.padding(top = 47.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(26.dp)
+            ) {
+                Text(text = state.price.toString(), style = headlineSmallSemibold)
+                ButtonPrimary(
+                    onClick = {},
+                    modifier = Modifier.weight(1f)
                 ) {
-
-                    Icon(
-                        painter = painterResource(id = R.drawable.heart),
-                        contentDescription = state.title,
-                        modifier = Modifier
-                            .offset(y = (-20).dp)
-                            .background(White, RoundedCornerShape(16.dp))
-                            .padding(horizontal = 8.dp, vertical = 9.dp)
-                            .size(28.dp)
-                            .align(Alignment.End),
-                        tint = Primary
-                    )
-
                     Text(
-                        text = state.title,
-                        style = headlineSmallSemibold
+                        text = stringResource(R.string.add_to_cart),
+                        style = titleLargeSemibold.copy(White),
                     )
-
-                    Text(
-                        text = stringResource(R.string.about_gonut),
-                        style = titleMedium.copy(color = DarkGray),
-                        modifier = Modifier.padding(top = 32.dp)
-                    )
-
-                    Text(
-                        text = state.description,
-                        style = bodyMediumNormal.copy(color = LightGrey),
-                        modifier = Modifier.padding(top = 16.dp),
-                        maxLines = 4,
-                        overflow = TextOverflow.Ellipsis
-                    )
-
-                    Text(
-                        text = stringResource(R.string.quantity),
-                        style = titleMedium.copy(color = DarkGray),
-                        modifier = Modifier.padding(top = 26.dp)
-                    )
-
-                    Row(
-                        modifier = Modifier
-                            .padding(top = 18.dp),
-                        horizontalArrangement = Arrangement.spacedBy(20.dp)
-                    ) {
-
-                        ButtonRounded(modifier = Modifier, color = White, onClick = {}) {
-                            Text(text = stringResource(R.string.minus), style = titleMedium)
-                        }
-                        ButtonRounded(modifier = Modifier, color = White, onClick = {}) {
-                            Text(text = state.quantity.toString(), style = titleMedium)
-                        }
-                        ButtonRounded(modifier = Modifier, color = Black, onClick = {}) {
-                            Text(
-                                text = stringResource(R.string.bonus),
-                                style = titleMedium.copy(White)
-                            )
-                        }
-
-                    }
-
-                    Row(
-                        modifier = Modifier.padding(top = 47.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(26.dp)
-                    ) {
-                        Text(text = state.price.toString(), style = headlineSmallSemibold)
-                        ButtonPrimary(
-                            onClick = {},
-                            modifier = Modifier.weight(1f)
-                        ) {
-                            Text(
-                                text = stringResource(R.string.add_to_cart),
-                                style = titleLargeSemibold.copy(White),
-                            )
-                        }
-                    }
                 }
             }
         }
