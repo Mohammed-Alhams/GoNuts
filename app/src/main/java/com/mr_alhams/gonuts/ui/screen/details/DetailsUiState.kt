@@ -6,4 +6,5 @@ data class DetailsUiState(
     val description: String = "",
     val quantity: Int = 1,
     val price: Int = 0,
+    val isFavourite: Boolean = false,
 )

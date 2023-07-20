@@ -2,6 +2,8 @@ package com.mr_alhams.gonuts.ui.screen.details
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -107,10 +109,16 @@ fun DetailsContent(
                 .padding(bottom = 40.dp, start = 40.dp, end = 40.dp),
         ) {
 
+            val icon = if (state.isFavourite) R.drawable.heart_filled else R.drawable.heart
+
             Icon(
-                painter = painterResource(id = R.drawable.heart),
+                painter = painterResource(id = icon),
                 contentDescription = state.title,
                 modifier = Modifier
+                    .clickable(
+                        interactionSource = MutableInteractionSource(),
+                        indication = null
+                    ) { listener.onAddToFavourite() }
                     .offset(y = (-20).dp)
                     .background(White, RoundedCornerShape(16.dp))
                     .padding(horizontal = 8.dp, vertical = 9.dp)
@@ -150,13 +158,19 @@ fun DetailsContent(
                 horizontalArrangement = Arrangement.spacedBy(20.dp)
             ) {
 
-                ButtonRounded(modifier = Modifier, color = White, onClick = {}) {
+                ButtonRounded(
+                    modifier = Modifier,
+                    color = White,
+                    onClick = { listener.onClickDecreaseQuantity() }) {
                     Text(text = stringResource(R.string.minus), style = titleMedium)
                 }
                 ButtonRounded(modifier = Modifier, color = White, onClick = {}) {
                     Text(text = state.quantity.toString(), style = titleMedium)
                 }
-                ButtonRounded(modifier = Modifier, color = Black, onClick = {}) {
+                ButtonRounded(
+                    modifier = Modifier,
+                    color = Black,
+                    onClick = { listener.onClickIncreaseQuantity() }) {
                     Text(
                         text = stringResource(R.string.bonus),
                         style = titleMedium.copy(White)
