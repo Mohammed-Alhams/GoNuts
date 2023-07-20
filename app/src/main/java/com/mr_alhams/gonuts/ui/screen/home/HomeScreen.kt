@@ -13,15 +13,19 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.mr_alhams.gonuts.R
 import com.mr_alhams.gonuts.ui.screen.composables.TopBar
+import com.mr_alhams.gonuts.ui.screen.details.navigateToDetails
 import com.mr_alhams.gonuts.ui.theme.Background
 import com.mr_alhams.gonuts.ui.theme.LightBlue
 import com.mr_alhams.gonuts.ui.theme.Primary
@@ -29,13 +33,28 @@ import com.mr_alhams.gonuts.ui.theme.Secondary
 import com.mr_alhams.gonuts.ui.theme.bodyMedium
 import com.mr_alhams.gonuts.ui.theme.headlineSmallSemibold
 import com.mr_alhams.gonuts.ui.theme.titleLargeSemibold
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @Composable
 fun HomeScreen(
-    viewModel: HomeViewModel = hiltViewModel()
+    viewModel: HomeViewModel = hiltViewModel(),
+    navController: NavController
 ) {
 
     val state by viewModel.uiState.collectAsState()
+
+    val coroutineScope = rememberCoroutineScope()
+
+
+    LaunchedEffect(key1 = Unit) {
+        coroutineScope.launch {
+            viewModel.effect.collectLatest {
+                navController.navigateToDetails(it)
+            }
+        }
+    }
+
     HomeContent(state, viewModel)
 
 }

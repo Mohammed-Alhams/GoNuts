@@ -43,7 +43,7 @@ import com.mr_alhams.gonuts.ui.theme.titleMedium
 
 @Composable
 fun DetailsScreen(
-    viewModel: DetailsScreenViewModel = hiltViewModel()
+    viewModel: DetailsViewModel = hiltViewModel()
 ) {
     val state by viewModel.uiState.collectAsState()
     DetailsContent(state)

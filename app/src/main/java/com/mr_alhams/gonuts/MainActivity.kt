@@ -3,7 +3,8 @@ package com.mr_alhams.gonuts
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.mr_alhams.gonuts.ui.screen.home.HomeScreen
+import androidx.navigation.compose.rememberNavController
+import com.mr_alhams.gonuts.ui.GoNutsNavGraph
 import com.mr_alhams.gonuts.ui.theme.GoNutsTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -13,7 +14,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             GoNutsTheme {
-                HomeScreen()
+                val navController = rememberNavController()
+                GoNutsNavGraph(navController)
             }
         }
     }
