@@ -12,9 +12,9 @@ import com.mr_alhams.gonuts.ui.screen.on_boarding.onBoardingRoute
 fun GoNutsNavGraph(navController: NavHostController) {
     NavHost(
         navController = navController,
-        startDestination = Screen.HomeScreen.route
+        startDestination = Screen.OnBoardingScreen.route
     ) {
-        onBoardingRoute()
+        onBoardingRoute(navController)
         homeRoute(navController)
         detailsRoute()
     }

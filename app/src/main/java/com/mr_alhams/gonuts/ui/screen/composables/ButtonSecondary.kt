@@ -5,11 +5,11 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.mr_alhams.gonuts.ui.theme.Primary
 
 @Composable
-fun ButtonPrimary(
+fun ButtonSecondary(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
     content: @Composable () -> Unit,
@@ -17,7 +17,7 @@ fun ButtonPrimary(
     Button(
         onClick = { onClick() },
         modifier = modifier.height(67.dp),
-        colors = ButtonDefaults.buttonColors(containerColor = Primary),
+        colors = ButtonDefaults.buttonColors(containerColor = Color.White),
         elevation = null
     ) {
         content()
