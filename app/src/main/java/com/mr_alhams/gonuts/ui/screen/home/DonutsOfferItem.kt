@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
@@ -83,7 +84,7 @@ fun DonutOffersItem(
 
         Text(
             text = buildAnnotatedString {
-                withStyle(bodyMediumSemiboldSpanStyle) {
+                withStyle(bodyMediumSemiboldSpanStyle.copy(textDecoration = TextDecoration.LineThrough)) {
                     append("\$${state.discountedPrice}")
                 }
                 withStyle(titleXLargeSpanStyle) {
