@@ -17,7 +17,7 @@
 ## Screenshots 📸
 
 <p align="center">
-  <img src="https://github.com/Mohammed-Alhams/GoNuts/assets/92039633/06fbb909-f6c4-4b33-b20f-42fa9b9d07c8" width="33%"/>
-  <img src="https://github.com/Mohammed-Alhams/GoNuts/assets/92039633/a25bdcb7-d15d-40b4-a8e4-c321541ad04b" width="33%"/>
-  <img src="https://github.com/Mohammed-Alhams/GoNuts/assets/92039633/cc9a8d47-223c-4690-a8f7-1d35a2964687" width="33%"/>
+  <img src="https://github.com/Mohammed-Alhams/GoNuts/assets/92039633/06fbb909-f6c4-4b33-b20f-42fa9b9d07c8" width="30%"/>
+  <img src="https://github.com/Mohammed-Alhams/GoNuts/assets/92039633/a25bdcb7-d15d-40b4-a8e4-c321541ad04b" width="30%"/>
+  <img src="https://github.com/Mohammed-Alhams/GoNuts/assets/92039633/cc9a8d47-223c-4690-a8f7-1d35a2964687" width="30%"/>
 </p>
